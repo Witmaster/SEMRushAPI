@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
@@ -80,17 +81,42 @@ namespace SEMRuchAPI
                         if (baseKeywords[i].Contains("|"))
                         {
                             string response = "";
+                            System.Collections.Generic.Dictionary<string, string> errors = new System.Collections.Generic.Dictionary<string, string>();
                             var subSet = baseKeywords[i].Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
                             foreach (string subKeyword in subSet)
                             {
-                                response += handle.GetPhraseMatch(subKeyword);
-                                excel.WriteToTab(response, subSet[0]);
+                                string temp = handle.GetPhraseMatch(subKeyword);
+                                if (temp.Contains("::"))
+                                {
+                                    errors.Add(subKeyword, temp);
+                                }
+                                else
+                                {
+                                    response += temp.Substring(37);
+                                }
+                            }
+                            if (errors.Count > 0)
+                            {
+                                int rowIndex = excel.WriteError(errors, subSet[0], i);
+                                excel.WriteToTab(response, subSet[0], i, rowIndex);
+                            }
+                            else
+                            {
+                                excel.WriteToTab(response, subSet[0], i, 0);
                             }
                         }
                         else
                         {
-                            string response = handle.GetPhraseMatch(baseKeywords[i]);
-                            excel.WriteToTab(response, baseKeywords[i]);
+                            string response = handle.GetPhraseMatch(baseKeywords[i]).Substring(37);
+                            if (response.Contains("::"))
+                            {
+                                excel.WriteError(new System.Collections.Generic.Dictionary<string, string>() { { baseKeywords[i] , response } },
+                                    baseKeywords[i], i);
+                            }
+                            else
+                            {
+                                excel.WriteToTab(response.Substring(37), baseKeywords[i], i, 0);
+                            }
                         }
                     }
                 }
