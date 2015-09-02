@@ -1,0 +1,2 @@
+D:\Git\SEMRuchAPI\SEMRuchAPI\bin\Release\SEMRushAPI.exe.config
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRuchAPI.csproj.ResolveComReference.cache

@@ -32,6 +32,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addChangeApiKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьСписокСтопсловToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NegWords = new System.Windows.Forms.TextBox();
             this.Locale = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,8 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.MaxLines = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.сохранитьСписокСтопсловToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.формулаAdvisabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxLines)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +72,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addChangeApiKeyToolStripMenuItem,
+            this.формулаAdvisabilityToolStripMenuItem,
             this.сохранитьСписокСтопсловToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
@@ -83,6 +85,20 @@
             this.addChangeApiKeyToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.addChangeApiKeyToolStripMenuItem.Text = "Ключ API";
             this.addChangeApiKeyToolStripMenuItem.Click += new System.EventHandler(this.addChangeApiKeyToolStripMenuItem_Click);
+            // 
+            // сохранитьСписокСтопсловToolStripMenuItem
+            // 
+            this.сохранитьСписокСтопсловToolStripMenuItem.Name = "сохранитьСписокСтопсловToolStripMenuItem";
+            this.сохранитьСписокСтопсловToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.сохранитьСписокСтопсловToolStripMenuItem.Text = "Сохранить список стоп-слов";
+            this.сохранитьСписокСтопсловToolStripMenuItem.Click += new System.EventHandler(this.сохранитьСписокСтопсловToolStripMenuItem_Click);
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // NegWords
             // 
@@ -216,19 +232,12 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Максимум строк:";
             // 
-            // сохранитьСписокСтопсловToolStripMenuItem
+            // формулаAdvisabilityToolStripMenuItem
             // 
-            this.сохранитьСписокСтопсловToolStripMenuItem.Name = "сохранитьСписокСтопсловToolStripMenuItem";
-            this.сохранитьСписокСтопсловToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.сохранитьСписокСтопсловToolStripMenuItem.Text = "Сохранить список стоп-слов";
-            this.сохранитьСписокСтопсловToolStripMenuItem.Click += new System.EventHandler(this.сохранитьСписокСтопсловToolStripMenuItem_Click);
-            // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
-            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
+            this.формулаAdvisabilityToolStripMenuItem.Name = "формулаAdvisabilityToolStripMenuItem";
+            this.формулаAdvisabilityToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.формулаAdvisabilityToolStripMenuItem.Text = "Формула Advisability";
+            this.формулаAdvisabilityToolStripMenuItem.Click += new System.EventHandler(this.формулаAdvisabilityToolStripMenuItem_Click);
             // 
             // SemRushAPI
             // 
@@ -277,6 +286,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem сохранитьСписокСтопсловToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem формулаAdvisabilityToolStripMenuItem;
     }
 }
 

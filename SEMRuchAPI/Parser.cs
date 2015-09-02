@@ -29,5 +29,28 @@ namespace SEMRuchAPI
                 return client.DownloadString(requestURL);
             }
         }
+
+        public string GetCompetition(System.Collections.Generic.List<string> competitors)
+        {
+            string response = "";
+            for (int i = 0; i < competitors.Count; i++)
+            {
+                string requestURL = "http://api.semrush.com/?type=domain_organic&key="
+                    + key + "&domain=" +competitors[i] + "&database=" + locale
+                    + "&display_limit=" + 20
+                    + "&export_columns=Ph,Pp,Nq&display_sort=pp_desc";
+                using (WebClient client = new WebClient())
+                {
+                    string webresp = client.DownloadString(requestURL);
+                    if (!webresp.Contains("::"))
+                    {
+                        response +=competitors[i]+System.Environment.NewLine + webresp.Substring(webresp.IndexOf(System.Environment.NewLine))+System.Environment.NewLine;
+                    }
+                    else { response += "По домену " + competitors[i] + " ничего не найдено"; }
+                }
+            }
+            competitors.Clear();
+            return response;
+        }
     }
 }

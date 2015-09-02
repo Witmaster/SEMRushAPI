@@ -9,6 +9,8 @@ namespace SEMRuchAPI
     public partial class SemRushAPI : Form
     {
         private static string APIKey = "";
+        private static string formula = "";
+        private static System.Collections.Generic.List<string> competitorsList  = new System.Collections.Generic.List<string>();
         ExcelHandler excel;
         public SemRushAPI()
         {
@@ -18,6 +20,10 @@ namespace SEMRuchAPI
             using (StreamReader reader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory.ToString() + "Apikey.dat"))
             {
                 APIKey = reader.ReadLine();
+            }
+            using (StreamReader reader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory.ToString() + "formula.dat"))
+            {
+                formula = reader.ReadLine();
             }
             using (FileStream reader = new FileStream(AppDomain.CurrentDomain.BaseDirectory.ToString() + "filter.dat", FileMode.OpenOrCreate, FileAccess.Read))
             {
@@ -37,15 +43,16 @@ namespace SEMRuchAPI
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-
-            if (saveFile.ShowDialog() == DialogResult.OK)
+            if (BaseKeywords.Text.Length > 0)
             {
-                excel = new ExcelHandler(saveFile.FileName, BaseKeywords.Text.Split(new string[] { ";", ",", Environment.NewLine },
-        StringSplitOptions.RemoveEmptyEntries).Length);
-                if (excel.isOK)
+                if (saveFile.ShowDialog() == DialogResult.OK)
                 {
-                    BeginParsing();
+                    excel = new ExcelHandler(saveFile.FileName, BaseKeywords.Text.Split(new string[] { ";", ",", Environment.NewLine },
+            StringSplitOptions.RemoveEmptyEntries).Length, formula);
+                    if (excel.isOK)
+                    {
+                        BeginParsing();
+                    }
                 }
             }
         }
@@ -65,7 +72,7 @@ namespace SEMRuchAPI
                     for (int i = 0; i < 25 && i < negWords.Length; i++)
                     {
                         filter += "&display_filter=-|Ph|Co|";
-                        filter += negWords[i];
+                        filter += negWords[i].Trim();
                     }
                 }
                 Parser handle = new Parser(APIKey, Locale.SelectedItem.ToString(), (int)MaxLines.Value, filter);
@@ -73,52 +80,71 @@ namespace SEMRuchAPI
         StringSplitOptions.RemoveEmptyEntries);
                 if (baseKeywords.Length != 0)
                 {
+                    int sheetNum = 0;
                     for (int i = 0; i < baseKeywords.Length; i++)
                     {
                         float progress = ((float)(i + 1) / (float)baseKeywords.Length) * 100;
                         progressBar.Value = (int)progress;
-                        Thread.Sleep(500);
-                        if (baseKeywords[i].Contains("|"))
+                        if (baseKeywords[i] != " ")
                         {
-                            string response = "";
-                            System.Collections.Generic.Dictionary<string, string> errors = new System.Collections.Generic.Dictionary<string, string>();
-                            var subSet = baseKeywords[i].Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
-                            foreach (string subKeyword in subSet)
+                            sheetNum++;
+                            if (baseKeywords[i].Contains("|"))
                             {
-                                string temp = handle.GetPhraseMatch(subKeyword);
-                                if (temp.Contains("::"))
+                                string response = "";
+                                System.Collections.Generic.Dictionary<string, string> errors = new System.Collections.Generic.Dictionary<string, string>();
+                                var subSet = baseKeywords[i].Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (string subKeyword in subSet)
                                 {
-                                    errors.Add(subKeyword, temp);
+                                    string temp = handle.GetPhraseMatch(subKeyword);
+                                    if (temp.Contains("::"))
+                                    {
+                                        errors.Add(subKeyword, temp);
+                                    }
+                                    else
+                                    {
+                                        {
+                                            if (response.Length > 0)
+                                            {
+                                                response += temp.Substring(37);
+                                            }
+                                        }
+                                    }
+                                }
+                                if (errors.Count > 0)
+                                {
+                                    int rowIndex = excel.WriteError(errors, subSet[0], sheetNum);
+                                    excel.WriteToTab(response, subSet[0], sheetNum, rowIndex);
                                 }
                                 else
                                 {
-                                    response += temp.Substring(37);
+                                    excel.WriteToTab(response, subSet[0], sheetNum, 0);
                                 }
                             }
-                            if (errors.Count > 0)
+                            else
+                            if (baseKeywords[i].Contains("http://"))
                             {
-                                int rowIndex = excel.WriteError(errors, subSet[0], i);
-                                excel.WriteToTab(response, subSet[0], i, rowIndex);
+                                competitorsList.Add(baseKeywords[i].Substring(7));
+                                sheetNum--;
                             }
                             else
                             {
-                                excel.WriteToTab(response, subSet[0], i, 0);
-                            }
-                        }
-                        else
-                        {
-                            string response = handle.GetPhraseMatch(baseKeywords[i]).Substring(37);
-                            if (response.Contains("::"))
-                            {
-                                excel.WriteError(new System.Collections.Generic.Dictionary<string, string>() { { baseKeywords[i] , response } },
-                                    baseKeywords[i], i);
-                            }
-                            else
-                            {
-                                excel.WriteToTab(response.Substring(37), baseKeywords[i], i, 0);
+                                string response = handle.GetPhraseMatch(baseKeywords[i]);
+                                if (response.Length > 0)
+                                {
+                                    if (response.Contains("::"))
+                                    {
+                                        excel.WriteError(new System.Collections.Generic.Dictionary<string, string>() { { baseKeywords[i], response } },
+                                            baseKeywords[i], sheetNum);
+                                    }
+                                    else
+                                    {
+                                        excel.WriteToTab(response.Substring(37), baseKeywords[i], sheetNum, 0);
+                                    }
+                                }
                             }
                         }
                     }
+                  if (competitorsList.Count > 0) { excel.WriteCompetition(handle.GetCompetition(competitorsList), sheetNum); }
                 }
             }
             progressBar.Visible = false;
@@ -223,6 +249,45 @@ namespace SEMRuchAPI
         inputBox.AcceptButton = okButton;
         DialogResult result = inputBox.ShowDialog();
         return result;
+        }
+
+        private void формулаAdvisabilityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeAdvisabilityFormula(ref formula);
+            using (StreamWriter writer = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory.ToString() + "formula.dat"))
+            {
+                writer.WriteLine(formula);
+            }
+        }
+
+        private static DialogResult ChangeAdvisabilityFormula(ref string input)
+        {
+            System.Drawing.Size windowSize = new System.Drawing.Size(200, 60);
+            Form inputBox = new Form();
+
+            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            inputBox.ClientSize = windowSize;
+            inputBox.Text = "Введите формулу в формате excel c букво-цифровой нотацией, заменяя цифровую составляющую знаком \"|\"";
+            inputBox.StartPosition = FormStartPosition.CenterParent;
+
+            System.Windows.Forms.TextBox keyField = new TextBox();
+            keyField.Text = input;
+            keyField.Size = new System.Drawing.Size(windowSize.Width - 10, 23);
+            keyField.Location = new System.Drawing.Point(5, 2);
+            inputBox.Controls.Add(keyField);
+
+            Button okButton = new Button();
+            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(75, 23);
+            okButton.Text = "OK";
+            okButton.Location = new System.Drawing.Point(windowSize.Width / 2 - 37, 30);
+            inputBox.Controls.Add(okButton);
+
+            inputBox.AcceptButton = okButton;
+            DialogResult result = inputBox.ShowDialog();
+            input = keyField.Text;
+            return result;
         }
     }
 }
