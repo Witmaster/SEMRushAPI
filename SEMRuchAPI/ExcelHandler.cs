@@ -170,6 +170,14 @@ namespace SEMRuchAPI
                     currentSheet.Cells[i + 2, j+1] = buffer[j].ToString();
                 }
             }
+            int lastSheet = xlWorkBook.Worksheets.Count;
+            xlApp.DisplayAlerts = false;
+            while (lastSheet>sheet)
+            {
+                xlWorkBook.Worksheets.get_Item(lastSheet).Delete();
+                lastSheet--;
+            }
+            xlApp.DisplayAlerts = true;
         }
 
     }
