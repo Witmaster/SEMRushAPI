@@ -32,7 +32,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addChangeApiKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.формулаAdvisabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьСписокСтопсловToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьНастройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NegWords = new System.Windows.Forms.TextBox();
             this.Locale = new System.Windows.Forms.ComboBox();
@@ -44,7 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.MaxLines = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.формулаAdvisabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.negWordsCount = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxLines)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +75,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addChangeApiKeyToolStripMenuItem,
             this.формулаAdvisabilityToolStripMenuItem,
-            this.сохранитьСписокСтопсловToolStripMenuItem});
+            this.сохранитьСписокСтопсловToolStripMenuItem,
+            this.сохранитьНастройкиToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.fileToolStripMenuItem.Text = "Настройки";
@@ -86,12 +89,26 @@
             this.addChangeApiKeyToolStripMenuItem.Text = "Ключ API";
             this.addChangeApiKeyToolStripMenuItem.Click += new System.EventHandler(this.addChangeApiKeyToolStripMenuItem_Click);
             // 
+            // формулаAdvisabilityToolStripMenuItem
+            // 
+            this.формулаAdvisabilityToolStripMenuItem.Name = "формулаAdvisabilityToolStripMenuItem";
+            this.формулаAdvisabilityToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.формулаAdvisabilityToolStripMenuItem.Text = "Формула Advisability";
+            this.формулаAdvisabilityToolStripMenuItem.Click += new System.EventHandler(this.формулаAdvisabilityToolStripMenuItem_Click);
+            // 
             // сохранитьСписокСтопсловToolStripMenuItem
             // 
             this.сохранитьСписокСтопсловToolStripMenuItem.Name = "сохранитьСписокСтопсловToolStripMenuItem";
             this.сохранитьСписокСтопсловToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.сохранитьСписокСтопсловToolStripMenuItem.Text = "Сохранить список стоп-слов";
             this.сохранитьСписокСтопсловToolStripMenuItem.Click += new System.EventHandler(this.сохранитьСписокСтопсловToolStripMenuItem_Click);
+            // 
+            // сохранитьНастройкиToolStripMenuItem
+            // 
+            this.сохранитьНастройкиToolStripMenuItem.Name = "сохранитьНастройкиToolStripMenuItem";
+            this.сохранитьНастройкиToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.сохранитьНастройкиToolStripMenuItem.Text = "Сохранить настройки";
+            this.сохранитьНастройкиToolStripMenuItem.Click += new System.EventHandler(this.сохранитьНастройкиToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -107,6 +124,7 @@
             this.NegWords.Name = "NegWords";
             this.NegWords.Size = new System.Drawing.Size(183, 177);
             this.NegWords.TabIndex = 2;
+            this.NegWords.TextChanged += new System.EventHandler(this.NegWords_TextChanged);
             // 
             // Locale
             // 
@@ -146,7 +164,6 @@
             this.Locale.Name = "Locale";
             this.Locale.Size = new System.Drawing.Size(63, 21);
             this.Locale.TabIndex = 3;
-            this.Locale.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -232,18 +249,22 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Максимум строк:";
             // 
-            // формулаAdvisabilityToolStripMenuItem
+            // negWordsCount
             // 
-            this.формулаAdvisabilityToolStripMenuItem.Name = "формулаAdvisabilityToolStripMenuItem";
-            this.формулаAdvisabilityToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.формулаAdvisabilityToolStripMenuItem.Text = "Формула Advisability";
-            this.формулаAdvisabilityToolStripMenuItem.Click += new System.EventHandler(this.формулаAdvisabilityToolStripMenuItem_Click);
+            this.negWordsCount.AutoSize = true;
+            this.negWordsCount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.negWordsCount.Location = new System.Drawing.Point(356, 59);
+            this.negWordsCount.Name = "negWordsCount";
+            this.negWordsCount.Size = new System.Drawing.Size(30, 13);
+            this.negWordsCount.TabIndex = 11;
+            this.negWordsCount.Text = "0/25";
             // 
             // SemRushAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 286);
+            this.Controls.Add(this.negWordsCount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.MaxLines);
             this.Controls.Add(this.label3);
@@ -287,6 +308,8 @@
         private System.Windows.Forms.ToolStripMenuItem сохранитьСписокСтопсловToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem формулаAdvisabilityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьНастройкиToolStripMenuItem;
+        private System.Windows.Forms.Label negWordsCount;
     }
 }
 

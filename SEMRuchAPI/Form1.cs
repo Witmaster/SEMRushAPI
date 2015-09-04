@@ -36,11 +36,6 @@ namespace SEMRuchAPI
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (BaseKeywords.Text.Length > 0)
@@ -288,6 +283,40 @@ namespace SEMRuchAPI
             DialogResult result = inputBox.ShowDialog();
             input = keyField.Text;
             return result;
+        }
+
+        private void сохранитьНастройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //settings.Write();
+        }
+
+        private void NegWords_TextChanged(object sender, EventArgs e)
+        {
+            string[] negs = NegWords.Text.Split(new string[] { Environment.NewLine, ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            int count = negs.Length;
+            negWordsCount.Text = negs.Length.ToString() + "/25";
+            if (negs.Length>25)
+            {
+                int lastIndex = NegWords.Text.LastIndexOfAny(new char[] { ',', ';' });
+                int lastIndexNL = NegWords.Text.LastIndexOfAny(Environment.NewLine.ToCharArray());
+                if(lastIndex>lastIndexNL)
+                {
+                    NegWords.Text= NegWords.Text.Remove(lastIndex);
+                }
+                else if (lastIndexNL!=-1)
+                {
+                    NegWords.Text=NegWords.Text.Remove(lastIndexNL);
+                }
+                NegWords.Select(NegWords.Text.Length, 0);
+            }
+            if (negs.Length==25)
+            {
+                negWordsCount.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                negWordsCount.ForeColor = System.Drawing.Color.Black;
+            }
         }
     }
 }
