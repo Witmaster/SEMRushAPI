@@ -33,7 +33,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addChangeApiKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.формулаAdvisabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьСписокСтопсловToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьНастройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NegWords = new System.Windows.Forms.TextBox();
@@ -75,38 +74,29 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addChangeApiKeyToolStripMenuItem,
             this.формулаAdvisabilityToolStripMenuItem,
-            this.сохранитьСписокСтопсловToolStripMenuItem,
             this.сохранитьНастройкиToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.fileToolStripMenuItem.Text = "Настройки";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // addChangeApiKeyToolStripMenuItem
             // 
             this.addChangeApiKeyToolStripMenuItem.Name = "addChangeApiKeyToolStripMenuItem";
-            this.addChangeApiKeyToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.addChangeApiKeyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.addChangeApiKeyToolStripMenuItem.Text = "Ключ API";
             this.addChangeApiKeyToolStripMenuItem.Click += new System.EventHandler(this.addChangeApiKeyToolStripMenuItem_Click);
             // 
             // формулаAdvisabilityToolStripMenuItem
             // 
             this.формулаAdvisabilityToolStripMenuItem.Name = "формулаAdvisabilityToolStripMenuItem";
-            this.формулаAdvisabilityToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.формулаAdvisabilityToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.формулаAdvisabilityToolStripMenuItem.Text = "Формула Advisability";
             this.формулаAdvisabilityToolStripMenuItem.Click += new System.EventHandler(this.формулаAdvisabilityToolStripMenuItem_Click);
-            // 
-            // сохранитьСписокСтопсловToolStripMenuItem
-            // 
-            this.сохранитьСписокСтопсловToolStripMenuItem.Name = "сохранитьСписокСтопсловToolStripMenuItem";
-            this.сохранитьСписокСтопсловToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.сохранитьСписокСтопсловToolStripMenuItem.Text = "Сохранить список стоп-слов";
-            this.сохранитьСписокСтопсловToolStripMenuItem.Click += new System.EventHandler(this.сохранитьСписокСтопсловToolStripMenuItem_Click);
             // 
             // сохранитьНастройкиToolStripMenuItem
             // 
             this.сохранитьНастройкиToolStripMenuItem.Name = "сохранитьНастройкиToolStripMenuItem";
-            this.сохранитьНастройкиToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.сохранитьНастройкиToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.сохранитьНастройкиToolStripMenuItem.Text = "Сохранить настройки";
             this.сохранитьНастройкиToolStripMenuItem.Click += new System.EventHandler(this.сохранитьНастройкиToolStripMenuItem_Click);
             // 
@@ -305,7 +295,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown MaxLines;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьСписокСтопсловToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem формулаAdvisabilityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьНастройкиToolStripMenuItem;

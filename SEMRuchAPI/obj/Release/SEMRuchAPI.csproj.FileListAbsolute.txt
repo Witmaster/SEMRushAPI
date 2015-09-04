@@ -1,2 +1,10 @@
 D:\Git\SEMRuchAPI\SEMRuchAPI\bin\Release\SEMRushAPI.exe.config
 D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRuchAPI.csproj.ResolveComReference.cache
+D:\Git\SEMRuchAPI\SEMRuchAPI\bin\Release\SEMRushAPI.exe
+D:\Git\SEMRuchAPI\SEMRuchAPI\bin\Release\SEMRushAPI.pdb
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRuchAPI.csprojResolveAssemblyReference.cache
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRuchAPI.SemRushAPI.resources
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRushAPI.Properties.Resources.resources
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRuchAPI.csproj.GenerateResource.Cache
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRushAPI.exe
+D:\Git\SEMRuchAPI\SEMRuchAPI\obj\Release\SEMRushAPI.pdb
