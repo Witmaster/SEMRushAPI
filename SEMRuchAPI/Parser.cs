@@ -46,7 +46,7 @@ namespace SEMRuchAPI
                     {
                         response +=competitors[i]+System.Environment.NewLine + webresp.Substring(webresp.IndexOf(System.Environment.NewLine))+System.Environment.NewLine;
                     }
-                    else { response += "По домену " + competitors[i] + " ничего не найдено"; }
+                    else { response += "По домену " + competitors[i] + " ничего не найдено" + System.Environment.NewLine; }
                 }
             }
             competitors.Clear();
