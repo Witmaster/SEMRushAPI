@@ -38,7 +38,7 @@ namespace SEMRuchAPI
                 string requestURL = "http://api.semrush.com/?type=domain_organic&key="
                     + key + "&domain=" +competitors[i] + "&database=" + locale
                     + "&display_limit=" + 20
-                    + "&export_columns=Ph,Pp,Nq&display_sort=pp_desc";
+                    + "&export_columns=Ph,Pp,Nq&display_sort=pp_desc&display_filter=-|Pp|Gt|10";
                 using (WebClient client = new WebClient())
                 {
                     string webresp = client.DownloadString(requestURL);
