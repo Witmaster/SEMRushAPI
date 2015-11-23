@@ -4,7 +4,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace SEMRuchAPI
 {
-    class ExcelHandler
+    class ExcelHandler : IDisposable
     {
         public bool isOK = false;
         private static Microsoft.Office.Interop.Excel.Application xlApp;
